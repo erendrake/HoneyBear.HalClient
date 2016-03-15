@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using HoneyBear.HalClient.Models;
+using iUS.Halclient.Models;
 using Newtonsoft.Json;
 
-namespace HoneyBear.HalClient.Serialization
+namespace iUS.Halclient.Serialization
 {
     internal static class HalResourceJsonReader
     {

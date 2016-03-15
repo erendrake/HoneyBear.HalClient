@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
     /// <summary>
     /// Contains a set of IResource extensions.

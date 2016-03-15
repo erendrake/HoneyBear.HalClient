@@ -1,9 +1,9 @@
-﻿using System;
-using System.Net.Http;
-using HoneyBear.HalClient.Models;
+﻿using iUS.Halclient.Models;
 using NUnit.Framework;
+using System;
+using System.Net.Http;
 
-namespace HoneyBear.HalClient.Unit.Tests
+namespace iUS.Halclient.Test
 {
     [TestFixture]
     internal class HalClientUnitTests
@@ -36,7 +36,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatSingleResourceIsPresent();
@@ -52,7 +52,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie)
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie)
                     .Get("orderitem", HalClientTestContext.Curie);
             _context.Act(act);
 
@@ -69,7 +69,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order-queryby-user", new {userRef = HalClientTestContext.UserRef}, HalClientTestContext.Curie);
+                    .Get("order-queryby-user", new { userRef = HalClientTestContext.UserRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatPagedResourceIsPresent();
@@ -85,7 +85,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order-queryby-user", new {userRef = HalClientTestContext.UserRef}, HalClientTestContext.Curie)
+                    .Get("order-queryby-user", new { userRef = HalClientTestContext.UserRef }, HalClientTestContext.Curie)
                     .Get("order", HalClientTestContext.Curie);
             _context.Act(act);
 
@@ -120,7 +120,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Post("order-add", _context.OrderAdd, new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Post("order-add", _context.OrderAdd, new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatResourceWasCreated();
@@ -155,7 +155,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Post("order-add", _context.OrderAdd, new {orderRef = _context.OrderRef});
+                    .Post("order-add", _context.OrderAdd, new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatResourceWasCreated();
@@ -172,7 +172,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie)
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie)
                     .Put("order-edit", _context.OrderEdit, HalClientTestContext.Curie);
             _context.Act(act);
 
@@ -189,7 +189,7 @@ namespace HoneyBear.HalClient.Unit.Tests
 
             Func<IHalClient, IHalClient> act = sut =>
             {
-                var parameters = new {orderRef = _context.OrderRef};
+                var parameters = new { orderRef = _context.OrderRef };
                 return sut
                     .Root(HalClientTestContext.RootUri)
                     .Put("order-edit", _context.OrderEdit, parameters, HalClientTestContext.Curie);
@@ -211,7 +211,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef})
+                    .Get("order", new { orderRef = _context.OrderRef })
                     .Put("order-edit", _context.OrderEdit);
             _context.Act(act);
 
@@ -229,7 +229,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Put("order-edit", _context.OrderEdit, new {orderRef = _context.OrderRef});
+                    .Put("order-edit", _context.OrderEdit, new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatResourceWasUpdated();
@@ -246,7 +246,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie)
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie)
                     .Delete("order-delete", HalClientTestContext.Curie);
             _context.Act(act);
 
@@ -263,7 +263,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Delete("order-delete", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Delete("order-delete", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatResourceWasDeleted();
@@ -281,7 +281,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef})
+                    .Get("order", new { orderRef = _context.OrderRef })
                     .Delete("order-delete");
             _context.Act(act);
 
@@ -299,7 +299,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Delete("order-delete", new {orderRef = _context.OrderRef});
+                    .Delete("order-delete", new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatResourceWasDeleted();
@@ -315,7 +315,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatResourceHasRelationship();
@@ -332,7 +332,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef});
+                    .Get("order", new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatResourceHasRelationshipWithoutCurie();
@@ -348,7 +348,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatResourceDoesNotHasRelationship();
@@ -365,7 +365,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef});
+                    .Get("order", new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatResourceDoesNotHasRelationshipWithoutCurie();
@@ -382,7 +382,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root(HalClientTestContext.RootUri)
-                    .Get("order", new {orderRef = _context.OrderRef});
+                    .Get("order", new { orderRef = _context.OrderRef });
             _context.Act(act);
 
             _context.AssertThatSingleResourceIsPresent();
@@ -427,7 +427,7 @@ namespace HoneyBear.HalClient.Unit.Tests
             Func<IHalClient, IHalClient> act = sut =>
                 sut
                     .Root()
-                    .Get("order", new {orderRef = _context.OrderRef}, HalClientTestContext.Curie);
+                    .Get("order", new { orderRef = _context.OrderRef }, HalClientTestContext.Curie);
             _context.Act(act);
 
             _context.AssertThatSingleResourceIsPresent();

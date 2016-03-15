@@ -1,13 +1,12 @@
 using System;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
-    internal sealed class FailedToResolveRelationship : Exception
+    public sealed class FailedToResolveRelationship : Exception
     {
         public FailedToResolveRelationship(string relationship)
             : base($"Failed to resolve relationship:{relationship}")
         {
-
         }
     }
 }

@@ -1,14 +1,14 @@
+using iUS.Halclient.Http;
+using iUS.Halclient.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using HoneyBear.HalClient.Http;
-using HoneyBear.HalClient.Models;
 using Tavis.UriTemplates;
 
-namespace HoneyBear.HalClient
+namespace iUS.Halclient
 {
     /// <summary>
     /// A lightweight fluent .NET client for navigating and consuming HAL APIs.
@@ -20,7 +20,7 @@ namespace HoneyBear.HalClient
         private IEnumerable<IResource> _current = Enumerable.Empty<IResource>();
 
         private static readonly ICollection<MediaTypeFormatter> _defaultFormatters =
-            new[] {new HalJsonMediaTypeFormatter()};
+            new[] { new HalJsonMediaTypeFormatter() };
 
         /// <summary>
         /// Creates an instance of the <see cref="HalClient"/> class.
@@ -46,7 +46,6 @@ namespace HoneyBear.HalClient
             HttpClient client)
             : this(client, _defaultFormatters)
         {
-            
         }
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace HoneyBear.HalClient
         public HalClient()
             : this(new HttpClient())
         {
-            
         }
 
         /// <summary>
@@ -83,7 +81,6 @@ namespace HoneyBear.HalClient
             IJsonHttpClient client)
             : this(client, _defaultFormatters)
         {
-            
         }
 
         /// <summary>
@@ -92,7 +89,7 @@ namespace HoneyBear.HalClient
         public HttpClient HttpClient => _client.HttpClient;
 
         /// <summary>
-        /// Returns the most recently navigated resource of the specified type. 
+        /// Returns the most recently navigated resource of the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the resource to return.</typeparam>
         /// <returns>The most recent navigated resource of the specified type.</returns>

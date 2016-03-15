@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HoneyBear.HalClient.Unit.Tests.ProxyResources
+namespace iUS.Halclient.Test.ProxyResources
 {
     internal class OrderAdd
     {

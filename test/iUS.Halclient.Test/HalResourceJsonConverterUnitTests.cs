@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
-using HoneyBear.HalClient.Models;
-using HoneyBear.HalClient.Serialization;
+using iUS.Halclient.Models;
+using iUS.Halclient.Serialization;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoRhinoMock;
 
-namespace HoneyBear.HalClient.Unit.Tests
+namespace iUS.Halclient.Test
 {
     [TestFixture]
     internal class HalResourceJsonConverterUnitTests
@@ -35,7 +35,7 @@ namespace HoneyBear.HalClient.Unit.Tests
         {
             private readonly JsonWriter _writer;
             private readonly JsonSerializer _serializer;
-            private readonly HalResourceJsonConverter _sut;
+            private readonly iUS.Halclient.Serialization.HalResourceJsonConverter _sut;
             private readonly object _obj;
 
             public TestContext()
@@ -56,7 +56,7 @@ namespace HoneyBear.HalClient.Unit.Tests
 
             public void CanConvertHalResource()
             {
-                _sut.CanConvert(typeof (Resource)).Should().BeTrue();
+                _sut.CanConvert(typeof(Resource)).Should().BeTrue();
             }
         }
     }

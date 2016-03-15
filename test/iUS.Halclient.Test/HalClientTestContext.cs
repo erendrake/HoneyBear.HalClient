@@ -1,3 +1,14 @@
+using FluentAssertions;
+using iUS.Halclient.Http;
+using iUS.Halclient.Models;
+using iUS.Halclient.Test.ProxyResources;
+using Newtonsoft.Json;
+using NUnit;
+using NUnit.Framework;
+using Ploeh.AutoFixture;
+using Ploeh.AutoFixture.AutoRhinoMock;
+using Ploeh.SemanticComparison.Fluent;
+using Rhino.Mocks;
 using System;
 using System.IO;
 using System.Linq;
@@ -5,19 +16,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using FluentAssertions;
-using HoneyBear.HalClient.Http;
-using HoneyBear.HalClient.Models;
-using HoneyBear.HalClient.Unit.Tests.ProxyResources;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoRhinoMock;
-using Ploeh.SemanticComparison.Fluent;
-using Rhino.Mocks;
-using Version = HoneyBear.HalClient.Unit.Tests.ProxyResources.Version;
+using Version = iUS.Halclient.Test.ProxyResources.Version;
 
-namespace HoneyBear.HalClient.Unit.Tests
+namespace iUS.Halclient.Test
 {
     internal class HalClientTestContext
     {
@@ -236,7 +237,7 @@ namespace HoneyBear.HalClient.Unit.Tests
         public void AssertThatHttpClientCanBeProvided()
         {
             var baseAddress = _fixture.Create<Uri>();
-            var http = new HttpClient {BaseAddress = baseAddress};
+            var http = new HttpClient { BaseAddress = baseAddress };
             var sut = new HalClient(http);
             sut.HttpClient.BaseAddress.Should().Be(baseAddress);
         }
@@ -297,13 +298,13 @@ namespace HoneyBear.HalClient.Unit.Tests
                     new
                     {
                         curies = _curies,
-                        self = new {href = RootUri},
-                        retail_order = new {href = "/v1/order/{orderRef}", templated = true},
-                        retail_order_queryby_user = new {href = "/v1/order?userRef={userRef}", templated = true},
-                        retail_order_add = new {href = "/v1/order"},
-                        retail_order_add_with_id = new {href = "/v1/order/{orderRef}", templated = true},
-                        retail_order_edit = new {href = "/v1/order/{orderRef}", templated = true},
-                        retail_order_delete = new {href = "/v1/order/{orderRef}", templated = true}
+                        self = new { href = RootUri },
+                        retail_order = new { href = "/v1/order/{orderRef}", templated = true },
+                        retail_order_queryby_user = new { href = "/v1/order?userRef={userRef}", templated = true },
+                        retail_order_add = new { href = "/v1/order" },
+                        retail_order_add_with_id = new { href = "/v1/order/{orderRef}", templated = true },
+                        retail_order_edit = new { href = "/v1/order/{orderRef}", templated = true },
+                        retail_order_delete = new { href = "/v1/order/{orderRef}", templated = true }
                     }
             };
 
@@ -314,14 +315,14 @@ namespace HoneyBear.HalClient.Unit.Tests
                 _links =
                     new
                     {
-                        self = new {href = RootUri},
-                        order = new {href = "/v1/order/{orderRef}", templated = true},
-                        order_queryby_user = new {href = "/v1/order?userRef={userRef}", templated = true},
-                        order_query_all = new {href = "/v1/order"},
-                        order_add = new {href = "/v1/order"},
-                        order_add_with_id = new {href = "/v1/order/{orderRef}", templated = true},
-                        order_edit = new {href = "/v1/order/{orderRef}", templated = true},
-                        order_delete = new {href = "/v1/order/{orderRef}", templated = true}
+                        self = new { href = RootUri },
+                        order = new { href = "/v1/order/{orderRef}", templated = true },
+                        order_queryby_user = new { href = "/v1/order?userRef={userRef}", templated = true },
+                        order_query_all = new { href = "/v1/order" },
+                        order_add = new { href = "/v1/order" },
+                        order_add_with_id = new { href = "/v1/order/{orderRef}", templated = true },
+                        order_edit = new { href = "/v1/order/{orderRef}", templated = true },
+                        order_delete = new { href = "/v1/order/{orderRef}", templated = true }
                     }
             };
 
@@ -336,9 +337,9 @@ namespace HoneyBear.HalClient.Unit.Tests
                     new
                     {
                         curies = _curies,
-                        self = new {href = $"/v1/order/{OrderRef}"},
-                        retail_order_edit = new {href = $"/v1/order/{OrderRef}"},
-                        retail_order_delete = new {href = $"/v1/order/{OrderRef}"}
+                        self = new { href = $"/v1/order/{OrderRef}" },
+                        retail_order_edit = new { href = $"/v1/order/{OrderRef}" },
+                        retail_order_delete = new { href = $"/v1/order/{OrderRef}" }
                     },
                 _embedded =
                     new
@@ -373,9 +374,9 @@ namespace HoneyBear.HalClient.Unit.Tests
                 _links =
                     new
                     {
-                        self = new {href = $"/v1/order/{OrderRef}"},
-                        order_edit = new {href = $"/v1/order/{OrderRef}"},
-                        order_delete = new {href = $"/v1/order/{OrderRef}"}
+                        self = new { href = $"/v1/order/{OrderRef}" },
+                        order_edit = new { href = $"/v1/order/{OrderRef}" },
+                        order_delete = new { href = $"/v1/order/{OrderRef}" }
                     },
                 _embedded =
                     new
@@ -411,7 +412,7 @@ namespace HoneyBear.HalClient.Unit.Tests
                     new
                     {
                         curies = _curies,
-                        self = new {href = $"/v1/order?userRef={UserRef}"}
+                        self = new { href = $"/v1/order?userRef={UserRef}" }
                     },
                 _embedded =
                     new
@@ -447,7 +448,7 @@ namespace HoneyBear.HalClient.Unit.Tests
                     new
                     {
                         curies = _curies,
-                        self = new {href = "/v1/order"}
+                        self = new { href = "/v1/order" }
                     },
                 _embedded =
                     new

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
-    internal sealed class Resource : Dictionary<string, object>, IResource
+    public sealed class Resource : Dictionary<string, object>, IResource
     {
         public Resource()
         {
@@ -17,7 +17,7 @@ namespace HoneyBear.HalClient.Models
         public IList<IResource> Embedded { get; set; }
     }
 
-    internal sealed class Resource<T> : Dictionary<string, object>, IResource<T>
+    public sealed class Resource<T> : Dictionary<string, object>, IResource<T>
         where T : class, new()
     {
         public Resource()

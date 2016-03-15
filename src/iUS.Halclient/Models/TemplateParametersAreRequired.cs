@@ -1,13 +1,12 @@
 using System;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
-    internal sealed class TemplateParametersAreRequired : Exception
+    public sealed class TemplateParametersAreRequired : Exception
     {
         public TemplateParametersAreRequired(ILink link)
             : base($"Template parameters are required for link={link}.")
         {
-
         }
     }
 }

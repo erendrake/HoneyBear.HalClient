@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
     /// <summary>
     /// Represents a generic HAL element.

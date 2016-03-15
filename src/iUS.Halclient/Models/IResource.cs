@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using HoneyBear.HalClient.Serialization;
+﻿using iUS.Halclient.Serialization;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
     /// <summary>
     /// Represents a generic HAL resource.
     /// </summary>
-    [JsonConverter(typeof (HalResourceJsonConverter))]
+    [JsonConverter(typeof(HalResourceJsonConverter))]
     public interface IResource : IDictionary<string, object>, INode
     {
         /// <summary>
@@ -25,7 +25,7 @@ namespace HoneyBear.HalClient.Models
     /// Represents a type-specific HAL resource.
     /// </summary>
     /// <typeparam name="T">The type of the resource.</typeparam>
-    [JsonConverter(typeof (HalResourceJsonConverter))]
+    [JsonConverter(typeof(HalResourceJsonConverter))]
     public interface IResource<out T> : IResource
         where T : class, new()
     {

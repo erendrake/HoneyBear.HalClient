@@ -1,4 +1,4 @@
-namespace HoneyBear.HalClient.Models
+namespace iUS.Halclient.Models
 {
     internal sealed class Link : ILink
     {

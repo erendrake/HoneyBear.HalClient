@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using HoneyBear.HalClient.Models;
+﻿using iUS.Halclient.Models;
+using System.Collections.Generic;
 
-namespace HoneyBear.HalClient
+namespace iUS.Halclient
 {
     /// <summary>
     /// A lightweight fluent .NET client for navigating and consuming HAL APIs.
@@ -9,7 +9,7 @@ namespace HoneyBear.HalClient
     public interface IHalClient
     {
         /// <summary>
-        /// Returns the most recently navigated resource of the specified type. 
+        /// Returns the most recently navigated resource of the specified type.
         /// </summary>
         /// <typeparam name="T">The type of the resource to return.</typeparam>
         /// <returns>The most recent navigated resource of the specified type.</returns>
