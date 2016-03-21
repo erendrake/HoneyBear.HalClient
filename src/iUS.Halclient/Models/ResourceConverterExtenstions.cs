@@ -1,8 +1,8 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace iUS.Halclient.Models
 {
@@ -25,11 +25,22 @@ namespace iUS.Halclient.Models
 
                 var propertyType = dataType.GetProperty(property.Name).PropertyType;
 
-                var complex = pair.Value as JObject;
-                var value =
-                    complex != null
-                        ? complex.ToObject(propertyType)
-                        : TypeDescriptor.GetConverter(propertyType).ConvertFromInvariantString(pair.Value.ToString());
+                var jArray = pair.Value as JArray;
+
+                var value = jArray?.ToObject(propertyType);
+
+                if (value == null)
+                {
+                    var jObject = pair.Value as JObject;
+                    if (jObject != null)
+                    {
+                        value = jObject.ToObject(propertyType);
+                    }
+                    else
+                    {
+                        value = TypeDescriptor.GetConverter(propertyType).ConvertFromInvariantString(pair.Value.ToString());
+                    }
+                }
 
                 property.SetValue(data, value, null);
             }

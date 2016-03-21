@@ -155,7 +155,7 @@ namespace iUS.Halclient
         /// <exception cref="TemplateParametersAreRequired" />
         public IHalClient Get(string rel, object parameters, string curie)
         {
-            var relationship = Relationship(rel, curie);
+            string relationship = Relationship(rel, curie);
 
             var embedded = _current.FirstOrDefault(r => r.Embedded.Any(e => e.Rel == relationship));
             if (embedded != null)
