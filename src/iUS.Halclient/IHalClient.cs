@@ -1,5 +1,6 @@
 ﻿using iUS.Halclient.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace iUS.Halclient
 {
@@ -218,5 +219,17 @@ namespace iUS.Halclient
         IHalClient PostAsync(string rel, object value, object parameters, string curie);
         IHalClient PutAsync(string rel, object value, object parameters, string curie);
         IHalClient DeleteAsync(string rel, object parameters, string curie);
+        Task Task { get; }
+        IHalClient GetAsync(string rel);
+        IHalClient GetAsync(string rel, string curie);
+        IHalClient GetAsync(string rel, object parameters);
+        IHalClient PostAsync(string rel, object value);
+        IHalClient PostAsync(string rel, object value, string curie);
+        IHalClient PostAsync(string rel, object value, object parameters);
+        IHalClient PutAsync(string rel, object value);
+        IHalClient PutAsync(string rel, object value, string curie);
+        IHalClient DeleteAsync(string rel);
+        IHalClient DeleteAsync(string rel, string curie);
+        IHalClient DeleteAsync(string rel, object parameters);
     }
 }

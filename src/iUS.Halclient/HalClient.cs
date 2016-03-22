@@ -140,6 +140,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Get(string rel) => Get(rel, null, null);
 
+        public IHalClient GetAsync(string rel) => GetAsync(rel, null, null);
+
         /// <summary>
         /// Navigates the given link relation and stores the the returned resource(s).
         /// </summary>
@@ -148,6 +150,8 @@ namespace iUS.Halclient
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Get(string rel, string curie) => Get(rel, null, curie);
+
+        public IHalClient GetAsync(string rel, string curie) => GetAsync(rel, null, curie);
 
         /// <summary>
         /// Navigates the given templated link relation and stores the the returned resource(s).
@@ -158,6 +162,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         /// <exception cref="TemplateParametersAreRequired" />
         public IHalClient Get(string rel, object parameters) => Get(rel, parameters, null);
+
+        public IHalClient GetAsync(string rel, object parameters) => GetAsync(rel, parameters, null);
 
         /// <summary>
         /// Navigates the given templated link relation and stores the the returned resource(s).
@@ -205,6 +211,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Post(string rel, object value) => Post(rel, value, null, null);
 
+        public IHalClient PostAsync(string rel, object value) => PostAsync(rel, value, null, null);
+
         /// <summary>
         /// Makes a HTTP POST request to the given link relation on the most recently navigated resource.
         /// </summary>
@@ -214,6 +222,8 @@ namespace iUS.Halclient
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Post(string rel, object value, string curie) => Post(rel, value, null, curie);
+
+        public IHalClient PostAsync(string rel, object value, string curie) => PostAsync(rel, value, null, curie);
 
         /// <summary>
         /// Makes a HTTP POST request to the given templated link relation on the most recently navigated resource.
@@ -225,6 +235,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         /// <exception cref="TemplateParametersAreRequired" />
         public IHalClient Post(string rel, object value, object parameters) => Post(rel, value, parameters, null);
+
+        public IHalClient PostAsync(string rel, object value, object parameters) => PostAsync(rel, value, parameters, null);
 
         /// <summary>
         /// Makes a HTTP POST request to the given templated link relation on the most recently navigated resource.
@@ -259,6 +271,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Put(string rel, object value) => Put(rel, value, null, null);
 
+        public IHalClient PutAsync(string rel, object value) => PutAsync(rel, value, null, null);
+
         /// <summary>
         /// Makes a HTTP PUT request to the given link relation on the most recently navigated resource.
         /// </summary>
@@ -268,6 +282,8 @@ namespace iUS.Halclient
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Put(string rel, object value, string curie) => Put(rel, value, null, curie);
+
+        public IHalClient PutAsync(string rel, object value, string curie) => PutAsync(rel, value, null, curie);
 
         /// <summary>
         /// Makes a HTTP PUT request to the given templated link relation on the most recently navigated resource.
@@ -279,6 +295,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         /// <exception cref="TemplateParametersAreRequired" />
         public IHalClient Put(string rel, object value, object parameters) => Put(rel, value, parameters, null);
+
+        public IHalClient PutAsync(string rel, object value, object parameters) => PutAsync(rel, value, parameters, null);
 
         /// <summary>
         /// Makes a HTTP PUT request to the given templated link relation on the most recently navigated resource.
@@ -312,6 +330,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Delete(string rel) => Delete(rel, null, null);
 
+        public IHalClient DeleteAsync(string rel) => DeleteAsync(rel, null, null);
+
         /// <summary>
         /// Makes a HTTP DELETE request to the given link relation on the most recently navigated resource.
         /// </summary>
@@ -320,6 +340,8 @@ namespace iUS.Halclient
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         /// <exception cref="FailedToResolveRelationship" />
         public IHalClient Delete(string rel, string curie) => Delete(rel, null, curie);
+
+        public IHalClient DeleteAsync(string rel, string curie) => DeleteAsync(rel, null, curie);
 
         /// <summary>
         /// Makes a HTTP DELETE request to the given templated link relation on the most recently navigated resource.
@@ -330,6 +352,8 @@ namespace iUS.Halclient
         /// <exception cref="FailedToResolveRelationship" />
         /// <exception cref="TemplateParametersAreRequired" />
         public IHalClient Delete(string rel, object parameters) => Delete(rel, parameters, null);
+
+        public IHalClient DeleteAsync(string rel, object parameters) => DeleteAsync(rel, parameters, null);
 
         /// <summary>
         /// Makes a HTTP DELETE request to the given templated link relation on the most recently navigated resource.
