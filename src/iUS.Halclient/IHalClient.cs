@@ -211,5 +211,12 @@ namespace iUS.Halclient
         /// <param name="curie">The curie of the link relation.</param>
         /// <returns>Whether or not the link relation exists.</returns>
         bool Has(string rel, string curie);
+
+        IHalClient RootAsync();
+        IHalClient RootAsync(string href);
+        IHalClient GetAsync(string rel, object parameters, string curie);
+        IHalClient PostAsync(string rel, object value, object parameters, string curie);
+        IHalClient PutAsync(string rel, object value, object parameters, string curie);
+        IHalClient DeleteAsync(string rel, object parameters, string curie);
     }
 }
