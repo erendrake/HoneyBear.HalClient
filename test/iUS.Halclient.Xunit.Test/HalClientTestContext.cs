@@ -10,9 +10,12 @@ using iUS.Halclient.Test.ProxyResources;
 using Newtonsoft.Json;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoRhinoMock;
+using Ploeh.SemanticComparison.Fluent;
 using Rhino.Mocks;
 using Xunit;
 using Version = iUS.Halclient.Test.ProxyResources.Version;
+using FluentAssertions;
+using System.Linq;
 
 namespace iUS.Halclient.Test
 {

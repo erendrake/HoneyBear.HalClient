@@ -1,8 +1,10 @@
-﻿using iUS.Halclient.Models;
+﻿using FluentAssertions;
+using iUS.Halclient.Models;
 using iUS.Halclient.Serialization;
 using Newtonsoft.Json;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoRhinoMock;
+using Ploeh.SemanticComparison.Fluent;
 using Xunit;
 
 namespace iUS.Halclient.Test
