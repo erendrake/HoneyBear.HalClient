@@ -18,6 +18,7 @@ namespace iUS.Halclient
         private readonly IJsonHttpClient _client;
         private readonly IEnumerable<MediaTypeFormatter> _formatters;
         private IEnumerable<IResource> _current = Enumerable.Empty<IResource>();
+        public Task Task { get; private set; }
 
         private static readonly ICollection<MediaTypeFormatter> _defaultFormatters =
             new[] { new HalJsonMediaTypeFormatter() };
@@ -83,6 +84,16 @@ namespace iUS.Halclient
         {
         }
 
+        private void QueueWork(Action work)
+        {
+            // queue up the work
+            Task = Task.ContinueWith(task =>
+            {
+                work();
+                return this;
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
         /// <summary>
         /// Gets the instance of <see cref="System.Net.Http.HttpClient"/> used by the <see cref="HalClient"/>.
         /// </summary>
@@ -110,12 +121,16 @@ namespace iUS.Halclient
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         public IHalClient Root() => Execute(string.Empty, uri => _client.GetAsync(uri));
 
+        public IHalClient RootAsync() => ExecuteAsync(string.Empty, uri => _client.GetAsync(uri));
+
         /// <summary>
         /// Makes a HTTP GET request to the given URL and stores the returned resource.
         /// </summary>
         /// <param name="href">The URI to request.</param>
         /// <returns>The updated <see cref="IHalClient"/>.</returns>
         public IHalClient Root(string href) => Execute(href, uri => _client.GetAsync(uri));
+
+        public IHalClient RootAsync(string href) => ExecuteAsync(href, uri => _client.GetAsync(uri));
 
         /// <summary>
         /// Navigates the given link relation and stores the the returned resource(s).
@@ -167,6 +182,20 @@ namespace iUS.Halclient
             return BuildAndExecute(relationship, parameters, uri => _client.GetAsync(uri));
         }
 
+        public IHalClient GetAsync(string rel, object parameters, string curie)
+        {
+            string relationship = Relationship(rel, curie);
+
+            var embedded = _current.FirstOrDefault(r => r.Embedded.Any(e => e.Rel == relationship));
+            if (embedded != null)
+            {
+                _current = embedded.Embedded.Where(e => e.Rel == relationship);
+                return this;
+            }
+
+            return BuildAndExecuteAsync(relationship, parameters, uri => _client.GetAsync(uri));
+        }
+
         /// <summary>
         /// Makes a HTTP POST request to the given link relation on the most recently navigated resource.
         /// </summary>
@@ -212,6 +241,13 @@ namespace iUS.Halclient
             var relationship = Relationship(rel, curie);
 
             return BuildAndExecute(relationship, parameters, uri => _client.PostAsync(uri, value));
+        }
+
+        public IHalClient PostAsync(string rel, object value, object parameters, string curie)
+        {
+            var relationship = Relationship(rel, curie);
+
+            return BuildAndExecuteAsync(relationship, parameters, uri => _client.PostAsync(uri, value));
         }
 
         /// <summary>
@@ -261,6 +297,13 @@ namespace iUS.Halclient
             return BuildAndExecute(relationship, parameters, uri => _client.PutAsync(uri, value));
         }
 
+        public IHalClient PutAsync(string rel, object value, object parameters, string curie)
+        {
+            var relationship = Relationship(rel, curie);
+
+            return BuildAndExecuteAsync(relationship, parameters, uri => _client.PutAsync(uri, value));
+        }
+
         /// <summary>
         /// Makes a HTTP DELETE request to the given link relation on the most recently navigated resource.
         /// </summary>
@@ -304,6 +347,13 @@ namespace iUS.Halclient
             return BuildAndExecute(relationship, parameters, uri => _client.DeleteAsync(uri));
         }
 
+        public IHalClient DeleteAsync(string rel, object parameters, string curie)
+        {
+            var relationship = Relationship(rel, curie);
+
+            return BuildAndExecuteAsync(relationship, parameters, uri => _client.DeleteAsync(uri));
+        }
+
         /// <summary>
         /// Determines whether the most recently navigated resource contains the given link relation.
         /// </summary>
@@ -336,6 +386,12 @@ namespace iUS.Halclient
             return Execute(Construct(link, parameters), command);
         }
 
+        private IHalClient BuildAndExecuteAsync(string relationship, object parameters, Func<string, Task<HttpResponseMessage>> command)
+        {
+            QueueWork(() => BuildAndExecute(relationship, parameters, command));
+            return this;
+        }
+
         private IHalClient Execute(string uri, Func<string, Task<HttpResponseMessage>> command)
         {
             var result = command(uri).Result;
@@ -350,6 +406,12 @@ namespace iUS.Halclient
                         : result.Content.ReadAsAsync<Resource>(_formatters).Result
                 };
 
+            return this;
+        }
+
+        private IHalClient ExecuteAsync(string uri, Func<string, Task<HttpResponseMessage>> command)
+        {
+            QueueWork(() => Execute(uri, command));
             return this;
         }
 
