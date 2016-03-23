@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using iUS.Halclient.Models;
+﻿using iUS.Halclient.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace iUS.Halclient.Serialization
 {
@@ -18,7 +18,7 @@ namespace iUS.Halclient.Serialization
                 switch (reader.TokenType)
                 {
                     case JsonToken.PropertyName:
-                        var propertyName = reader.Value.ToString();
+                        string propertyName = reader.Value.ToString();
                         ReadNextToken(reader);
 
                         switch (propertyName)
@@ -26,9 +26,11 @@ namespace iUS.Halclient.Serialization
                             case "_links":
                                 resource.Links = ReadLinks(reader, serializer);
                                 break;
+
                             case "_embedded":
                                 resource.Embedded = ReadEmbedded(reader, serializer);
                                 break;
+
                             default:
                                 resource[propertyName] = serializer.Deserialize(reader);
                                 break;
@@ -36,6 +38,7 @@ namespace iUS.Halclient.Serialization
                         continue;
                     case JsonToken.EndObject:
                         return resource;
+
                     case JsonToken.Comment:
                         continue;
                     default:
@@ -58,7 +61,7 @@ namespace iUS.Halclient.Serialization
                 switch (reader.TokenType)
                 {
                     case JsonToken.PropertyName:
-                        var rel = reader.Value.ToString();
+                        string rel = reader.Value.ToString();
                         ReadNextToken(reader);
                         links.AddRange(ReadLinks(reader, serializer, rel));
                         continue;
@@ -66,6 +69,7 @@ namespace iUS.Halclient.Serialization
                         continue;
                     case JsonToken.EndObject:
                         return links;
+
                     default:
                         throw new JsonSerializationException($"Unexpected token encountered:{reader.TokenType}");
                 }
@@ -81,9 +85,16 @@ namespace iUS.Halclient.Serialization
                 case JsonToken.StartObject:
                     var link = serializer.Deserialize<Link>(reader);
                     link.Rel = rel;
-                    return new[] {link};
+                    return new[] { link };
+
                 case JsonToken.StartArray:
-                    return serializer.Deserialize<Link[]>(reader);
+                    var links = serializer.Deserialize<Link[]>(reader);
+                    foreach (Link link1 in links)
+                    {
+                        link1.Rel = rel;
+                    }
+                    return links;
+
                 default:
                     throw new JsonSerializationException($"Unexpected token encountered:{reader.TokenType}");
             }
@@ -101,7 +112,7 @@ namespace iUS.Halclient.Serialization
                 switch (reader.TokenType)
                 {
                     case JsonToken.PropertyName:
-                        var rel = reader.Value.ToString();
+                        string rel = reader.Value.ToString();
                         ReadNextToken(reader);
                         embedded.AddRange(ReadEmbedded(reader, serializer, rel));
                         continue;
@@ -109,6 +120,7 @@ namespace iUS.Halclient.Serialization
                         continue;
                     case JsonToken.EndObject:
                         return embedded;
+
                     default:
                         throw new JsonSerializationException($"Unexpected token encountered:{reader.TokenType}");
                 }
@@ -124,12 +136,14 @@ namespace iUS.Halclient.Serialization
                 case JsonToken.StartObject:
                     var resource = serializer.Deserialize<IResource>(reader);
                     resource.Rel = rel;
-                    return new[] {resource};
+                    return new[] { resource };
+
                 case JsonToken.StartArray:
                     var resources = serializer.Deserialize<Resource[]>(reader);
-                    foreach (var r in resources)
+                    foreach (Resource r in resources)
                         r.Rel = rel;
                     return resources;
+
                 default:
                     throw new JsonSerializationException($"Unexpected token encountered:{reader.TokenType}");
             }
