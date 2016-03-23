@@ -191,16 +191,8 @@ namespace iUS.Halclient
 
         public IHalClient GetAsync(string rel, object parameters, string curie)
         {
-            string relationship = Relationship(rel, curie);
-
-            var embedded = _current.FirstOrDefault(r => r.Embedded.Any(e => e.Rel == relationship));
-            if (embedded != null)
-            {
-                _current = embedded.Embedded.Where(e => e.Rel == relationship);
-                return this;
-            }
-
-            return BuildAndExecuteAsync(relationship, parameters, uri => _client.GetAsync(uri));
+            QueueWork(() => Get(rel, parameters, curie));
+            return this;
         }
 
         /// <summary>
@@ -258,9 +250,8 @@ namespace iUS.Halclient
 
         public IHalClient PostAsync(string rel, object value, object parameters, string curie)
         {
-            var relationship = Relationship(rel, curie);
-
-            return BuildAndExecuteAsync(relationship, parameters, uri => _client.PostAsync(uri, value));
+            QueueWork(() => Post(rel,value, parameters, curie));
+            return this;
         }
 
         /// <summary>
@@ -318,9 +309,8 @@ namespace iUS.Halclient
 
         public IHalClient PutAsync(string rel, object value, object parameters, string curie)
         {
-            var relationship = Relationship(rel, curie);
-
-            return BuildAndExecuteAsync(relationship, parameters, uri => _client.PutAsync(uri, value));
+            QueueWork(() => Put(rel, value, parameters, curie));
+            return this;
         }
 
         /// <summary>
@@ -374,9 +364,8 @@ namespace iUS.Halclient
 
         public IHalClient DeleteAsync(string rel, object parameters, string curie)
         {
-            var relationship = Relationship(rel, curie);
-
-            return BuildAndExecuteAsync(relationship, parameters, uri => _client.DeleteAsync(uri));
+            QueueWork(() => Delete(rel, parameters, curie));
+            return this;
         }
 
         /// <summary>
@@ -409,12 +398,6 @@ namespace iUS.Halclient
 
             var link = resource.Links.FirstOrDefault(l => l.Rel == relationship);
             return Execute(Construct(link, parameters), command);
-        }
-
-        private IHalClient BuildAndExecuteAsync(string relationship, object parameters, Func<string, Task<HttpResponseMessage>> command)
-        {
-            QueueWork(() => BuildAndExecute(relationship, parameters, command));
-            return this;
         }
 
         private IHalClient Execute(string uri, Func<string, Task<HttpResponseMessage>> command)
