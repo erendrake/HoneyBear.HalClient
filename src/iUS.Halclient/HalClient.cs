@@ -37,6 +37,7 @@ namespace iUS.Halclient
         {
             _client = new JsonHttpClient(client);
             _formatters = formatters == null || !formatters.Any() ? _defaultFormatters : formatters;
+            Task = Task.FromResult(0);
         }
 
         /// <summary>
