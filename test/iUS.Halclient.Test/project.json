@@ -1,0 +1,24 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "iUS.Halclient.Test Class Library",
+  "authors": [ "cwoerz" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net46": { }
+  },
+  "dependencies": {
+    "AutoFixture": "3.41.1",
+    "AutoFixture.AutoRhinoMocks": "3.41.1",
+    "coveralls.io": "1.3.4",
+    "FluentAssertions": "4.2.2",
+    "iUS.Halclient": "",
+    "NMoneys": "4.1.0",
+    "NUnit": "3.2.0",
+    "SemanticComparison": "3.41.1",
+    "System.Linq": "4.0.1-beta-23516",
+    "xunit": "2.2.0-beta1-build3239",
+    "xunit.runner.visualstudio": "2.2.0-beta1-build1144"
+  }
+}

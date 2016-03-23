@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.9",
+  "description": "iUS.Halclient Class Library",
+  "authors": [ "cwoerz" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net46": { }
+  },
+  "dependencies": {
+    "Newtonsoft.Json": "8.0.3",
+    "System.Net.Http": "4.0.1-beta-23516",
+    "System.Net.Http.Formatting.Extension": "5.2.3",
+    "Tavis.UriTemplates": "0.6.6-beta5"
+  }
+}
